@@ -75,7 +75,7 @@ class ProductRepository extends EntityRepository
         $product->setKeywords($data['keywords']);
 
         $this->_em->persist($product);
-        $this->em->flush();
+        $this->_em->flush();
     }
 
     public function update(Int $id, array $data)
