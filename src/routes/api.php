@@ -11,6 +11,20 @@ return function (App $app) {
     );
 
     $app->group(
+        '/swagger',
+        function (RouteCollectorProxy $group) {
+            $group->get(
+                '',
+                \App\Actions\Swagger\SwaggerUIAction::class
+            );
+            $group->get(
+                '/schema',
+                \App\Actions\Swagger\SwaggerSchemaAction::class
+            );
+        }
+    );
+
+    $app->group(
         '/v1',
         function (RouteCollectorProxy $group) {
 

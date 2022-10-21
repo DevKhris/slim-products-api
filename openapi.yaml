@@ -1,0 +1,323 @@
+openapi: 3.0.0
+info:
+  title: 'Grow Swagger'
+  description: 'Swagger Grow Documentation'
+  contact:
+    email: joaquin.cejas@avalith.net
+  version: '0.1'
+servers:
+  -
+    url: 'http://localhost:8001'
+    description: Developer
+paths:
+  /v1/createProduct:
+    post:
+      tags:
+        - Products
+      description: 'Create product'
+      operationId: 8b5ee46e22961bc812d9b8951bd93008
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - slug
+                - description
+                - price
+                - stock
+                - keywords
+              properties:
+                name:
+                  description: 'Name of product'
+                  type: string
+                slug:
+                  description: 'Slug of product'
+                  type: string
+                description:
+                  description: 'Description of product'
+                  type: string
+                price:
+                  description: 'Price of product'
+                  type: integer
+                stock:
+                  description: 'Stock of product'
+                  type: integer
+                keywords:
+                  description: 'Keywords of product'
+                  type: string
+              type: object
+              example:
+                name: 'New Product'
+                slug: new-product
+                description: 'This is a description of new product'
+                price: 100
+                stock: 25
+                keywords: 'new product offer'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                example: 'Product created succesfully'
+        '500':
+          description: 'Internal Server Error'
+  '/v1/deleteProduct/{id}':
+    delete:
+      tags:
+        - Products
+      description: 'Delete product by Id'
+      operationId: e16af44395da5f537a4db6d342563df1
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html:
+              schema:
+                example: 'Product deleted succesfully'
+        '500':
+          description: 'Internal Server Error'
+  '/v1/products/{id}':
+    get:
+      tags:
+        - Products
+      description: 'Get product by Id'
+      operationId: a8bc3b1f5e0a7ee63f7c61d5900a3727
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  id: { description: Identificator, type: integer }
+                  name: { description: 'Name of product', type: string }
+                  slug: { description: 'Slug of product', type: string }
+                  description: { description: 'Description of product', type: string }
+                  price: { description: 'Price of product', type: integer }
+                  stock: { description: 'Stock of product', type: integer }
+                  keywords: { description: 'Keywords of product', type: string }
+                type: object
+                example:
+                  id: 1
+                  name: 'Prod 1'
+                  slug: prod1
+                  description: 'Description Test 1'
+                  price: 100
+                  stock: 25
+                  keywords: 'prod 1 test'
+        '500':
+          description: 'Internal Server Error'
+  '/v1/products/{slug}':
+    get:
+      tags:
+        - Products
+      description: 'Get product by Slug'
+      operationId: 0f8b1d83c418b26a39d86e9fc5fef51b
+      parameters:
+        -
+          name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  id: { description: Identificator, type: integer }
+                  name: { description: 'Name of product', type: string }
+                  slug: { description: 'Slug of product', type: string }
+                  description: { description: 'Description of product', type: string }
+                  price: { description: 'Price of product', type: integer }
+                  stock: { description: 'Stock of product', type: integer }
+                  keywords: { description: 'Keywords of product', type: string }
+                type: object
+                example:
+                  id: 1
+                  name: 'Prod 1'
+                  slug: prod1
+                  description: 'Description Test 1'
+                  price: 100
+                  stock: 25
+                  keywords: 'prod 1 test'
+        '500':
+          description: 'Internal Server Error'
+  /v1/products/search:
+    post:
+      tags:
+        - Products
+      description: 'Products advanced search'
+      operationId: 04b69e64aa62909939a7286bf462264b
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                id:
+                  description: Identificator
+                  type: integer
+                name:
+                  description: 'Name of product'
+                  type: string
+                slug:
+                  description: 'Slug of product'
+                  type: string
+                description:
+                  description: 'Description of product'
+                  type: string
+                price:
+                  description: 'Price of product'
+                  type: integer
+                stock:
+                  description: 'Stock of product'
+                  type: integer
+                keywords:
+                  description: 'Keywords of product'
+                  type: string
+              type: object
+              example:
+                id: 1
+                name: 'Prod 1'
+                slug: prod1
+                description: 'Description Test 1'
+                price: 100
+                stock: 25
+                keywords: 'prod 1 test'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  id: { description: Identificator, type: integer }
+                  name: { description: 'Name of product', type: string }
+                  slug: { description: 'Slug of product', type: string }
+                  description: { description: 'Description of product', type: string }
+                  price: { description: 'Price of product', type: integer }
+                  stock: { description: 'Stock of product', type: integer }
+                  keywords: { description: 'Keywords of product', type: string }
+                type: object
+                example:
+                  - { id: 1, name: 'Prod 1', slug: prod1, description: 'Description Test 1', price: 100, stock: 25, keywords: 'prod 1 test' }
+        '500':
+          description: 'Internal Server Error'
+  '/v1/updateProduct/{id}':
+    put:
+      tags:
+        - Products
+      description: 'Update product'
+      operationId: c1c71d5d804e4d33347317a360237574
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  description: 'Name of product'
+                  type: string
+                slug:
+                  description: 'Slug of product'
+                  type: string
+                description:
+                  description: 'Description of product'
+                  type: string
+                price:
+                  description: 'Price of product'
+                  type: integer
+                stock:
+                  description: 'Stock of product'
+                  type: integer
+                keywords:
+                  description: 'Keywords of product'
+                  type: string
+              type: object
+              example:
+                name: 'New Name'
+                slug: new-name-prod
+                description: 'This is the updated description'
+                price: 100
+                stock: 25
+                keywords: 'new name product'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                example: 'Product created succesfully'
+        '500':
+          description: 'Internal Server Error'
+  /v1/products:
+    get:
+      tags:
+        - Products
+      description: 'Get all products'
+      operationId: a3a2d1d190c891312f074e45434c61ec
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  id: { description: Identificator, type: integer }
+                  name: { description: 'Name of product', type: string }
+                  slug: { description: 'Slug of product', type: string }
+                  description: { description: 'Description of product', type: string }
+                  price: { description: 'Price of product', type: integer }
+                  stock: { description: 'Stock of product', type: integer }
+                  keywords: { description: 'Keywords of product', type: string }
+                type: object
+                example:
+                  - { id: 1, name: 'Prod 1', slug: prod1, description: 'Description Test 1', price: 100, stock: 25, keywords: 'prod 1 test' }
+                  - { id: 2, name: 'Prod 2', slug: prod2, description: 'Description Test 2', price: 150, stock: 33, keywords: 'prod 2 test' }
+  /:
+    get:
+      tags:
+        - Welcome
+      description: Index
+      operationId: 8f042dc0c574ec53000d68b979a707c7
+      responses:
+        '200':
+          description: 'Always reply 200 OK'
+          content:
+            text/html:
+              schema:
+                example: 'Welcome to Products API'
+tags:
+  -
+    name: Products
+    description: 'Search, Create, Update and Delete Products'
+  -
+    name: Welcome
+    description: 'Index Tag'

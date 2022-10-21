@@ -23,6 +23,74 @@ class GetProductBySlugAction extends Action
     }
 
     /**
+     * @OA\Get(
+     *     path="/v1/products/{slug}",
+     *     description="Get product by Slug",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *       name="slug",
+     *       in="path",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="integer",
+     *                         description="Identificator"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         description="Name of product"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="slug",
+     *                         type="string",
+     *                         description="Slug of product"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="description",
+     *                         type="string",
+     *                         description="Description of product"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="price",
+     *                         type="integer",
+     *                         description="Price of product"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="stock",
+     *                         type="integer",
+     *                         description="Stock of product"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="keywords",
+     *                         type="string",
+     *                         description="Keywords of product"
+     *                     ),
+     *                     example={
+     *                         "id": 1,
+     *                         "name": "Prod 1",
+     *                         "slug": "prod1",
+     *                         "description": "Description Test 1",
+     *                         "price": 100,
+     *                         "stock": 25,
+     *                         "keywords": "prod 1 test"
+     *                     }
+     *                 )
+     *             )
+     *         }
+     *     ),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     * 
      * Returns welcome message
      * 
      * @param \Psr\Http\Message\ServerRequestInterface $request  RequestInterface

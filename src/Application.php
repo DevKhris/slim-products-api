@@ -12,6 +12,8 @@ use App\Providers\DoctrineProvider;
 use App\Providers\ViewProvider;
 use Odan\Session\PhpSession;
 use Psr\Container\ContainerInterface;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
 use Slim\App;
 
 
@@ -50,7 +52,7 @@ class Application
         );
 
         $this->container->set('session', $this->session);
-
+        
         $this->container->set('view', ViewProvider::provide(null));
 
         $this->container->set(
@@ -59,6 +61,11 @@ class Application
         );
 
         $this->application = Bridge::create($this->container);
+
+        //Set Twig Views
+        $views = Twig::create('src/views', ['cache' => false]);
+        $this->application->add(TwigMiddleware::create($this->application, $views));
+
     }
 
     public function includeSettings(): array
